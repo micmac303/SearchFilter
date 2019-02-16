@@ -171,4 +171,39 @@ public class QuickStart {
             }
         }
     }
+
+    public List<SearchResult> search(String query) {
+
+        try {
+            YouTube youtube = new YouTube.Builder(HTTP_TRANSPORT, JSON_FACTORY, new HttpRequestInitializer() {
+                public void initialize(HttpRequest request) throws IOException {
+                }
+            }).setApplicationName("SearchFilter").build();
+
+            String apiKey = "AIzaSyBXJ6FxA27Z9NDMMx9mcekU6DyTrhw4Ms0";
+            YouTube.Search.List search = youtube.search().list("id,snippet");
+
+            String queryTerm = "news";
+
+            search.setKey(apiKey);
+            search.setQ(queryTerm);
+            search.setType("video");
+
+//            search.setFields("items(id/kind,id/videoId,snippet/title,snippet/thumbnails/default/url)");
+            search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
+
+            SearchListResponse searchResponse = search.execute();
+            List<SearchResult> searchResultList = searchResponse.getItems();
+            return searchResultList;
+
+        } catch (GoogleJsonResponseException e) {
+            e.printStackTrace();
+            System.err.println("There was a service error: " +
+                    e.getDetails().getCode() + " : " + e.getDetails().getMessage());
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+
+        return null;
+    }
 }

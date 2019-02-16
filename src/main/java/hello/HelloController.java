@@ -1,7 +1,11 @@
 package hello;
 
+import com.google.api.services.youtube.model.SearchResult;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @RestController
 public class HelloController {
@@ -12,8 +16,10 @@ public class HelloController {
     }
 
     @RequestMapping("/search")
-    public String search() {
-        return "Greetings from Spring Boot!";
+    public List<SearchResult> search() {
+
+        QuickStart quickStart = new QuickStart();
+        return quickStart.search("news");
     }
 
 }
