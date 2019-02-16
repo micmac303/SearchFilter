@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class QuickStart {
@@ -123,7 +124,10 @@ public class QuickStart {
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
 
             SearchListResponse searchResponse = search.execute();
-            List<SearchResult> searchResultList = searchResponse.getItems();
+            List<SearchResult> searchResultList = searchResponse.getItems()
+                    .stream()
+                    .filter(searchResult -> searchResult.getSnippet().getChannelId() != "UC16niRr50-MSBwiO3YDb3RA")
+                    .collect(Collectors.toList());
 
             if (searchResultList != null) {
                 prettyPrint(searchResultList.iterator(), queryTerm);
@@ -193,7 +197,11 @@ public class QuickStart {
             search.setMaxResults(NUMBER_OF_VIDEOS_RETURNED);
 
             SearchListResponse searchResponse = search.execute();
-            List<SearchResult> searchResultList = searchResponse.getItems();
+            List<SearchResult> searchResultList = searchResponse.getItems()
+                    .stream()
+                    .filter(searchResult -> ! searchResult.getSnippet().getChannelId().equals("UC16niRr50-MSBwiO3YDb3RA"))
+                    .collect(Collectors.toList());
+
             return searchResultList;
 
         } catch (GoogleJsonResponseException e) {
