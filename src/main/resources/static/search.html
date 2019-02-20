@@ -36,7 +36,14 @@
     <script src="/css/bootstrap.bundle.min.js" integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous"></script>
     <script>
         $( document ).ready(function() {
-            alert( "ready!" );
+            $("#search-button").click( function search() {
+                $.get( "/search", function( data ) {
+                    $( "#result" ).html( data );
+                    alert( data );
+                    alert( "Load was performed." );
+                });
+                alert("searching 2");
+            });
         });
     </script>
 </head>
@@ -79,10 +86,10 @@
         <div class="container">
             <h1 class="jumbotron-heading">Search Filter</h1>
             <p class="lead text-muted">Something short and leading about the collection below—its contents, the creator, etc. Make it short and sweet, but not too short so folks don’t simply skip over it entirely.</p>
-            <form class="form-inline" method="get" action="/search">
+            <form class="form-inline" method="get" action="#">
                 <label class="sr-only" for="inlineFormInputName2">Name</label>
                 <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Search">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                <button id="search-button" type="submit" class="btn btn-primary mb-2">Submit</button>
             </form>
             <p>
                 <a href="#" class="btn btn-primary my-2">Main call to action</a>
@@ -90,6 +97,8 @@
             </p>
         </div>
     </section>
+
+    <p id="result"></p>
 
     <div class="album py-5 bg-light">
         <div class="container">
