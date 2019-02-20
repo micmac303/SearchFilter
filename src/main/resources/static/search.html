@@ -39,7 +39,9 @@
             $("#search-button").click( function search() {
                 $.get( "/search", function( data ) {
                     $( "#result" ).html( data );
-                    alert( data );
+                    $.each(data, function(key, result) {
+                        alert(key+": "+result.snippet.channelTitle);
+                    });
                     alert( "Load was performed." );
                 });
                 alert("searching 2");
