@@ -44,14 +44,40 @@
             $("#search-button").click( function search() {
                 $.get( "/search", "news", function( data ) {
 
-                    // data = $.parseJSON(data);
+                    $("#results").empty();
                     $.each(data, function(i, item) {
 
-                        $("#results").append($("<div class=\"result card mb-4 shadow-sm\"></div>"))
-                            .append("<div id=\"thumbnail-container\"></div>")
-                            .append("<img id=\"thumbnail\" src=\"" + item.snippet.thumbnails.high.url +
-                                "\" width=\"100%\" height=\"100%\" fill=\"#55595c\"/>");
+                        // var results = $("#results").append($("<div class=\"result card mb-4 shadow-sm\"></div>"));
+                        // $.each(results, function (r, result) {
+                        //     result.append($("<div id=\"thumbnail-container\"></div>"));
+                        // })
 
+
+                        $fixture = $([
+                            "<div class='col-md-4'>",
+                            "<div class='result card mb-4 shadow-sm'>",
+                            "  <div class='thumbnail-container'>",
+                            "   <img class='thumbnail' src='"  + item.snippet.thumbnails.high.url +
+                            "' width='100%' height='100%' fill='#55595c' />",
+                            "  </div>",
+                            "    <div class='card-body'>",
+                            "       <h6><a href='https://www.youtube.com/watch?v=M-qTiYlctiA'>" + item.snippet.description + "</a></h6>",
+                            "           <p class=\"card-text\">" + item.snippet.description + "</p>",
+                            "    </div>",
+                            "</div>",
+                            "</div>",
+                        ].join("\n"));
+
+                        $("#results").append($fixture);
+
+
+                        // var result = results.find();
+                        // var thumbnailContainer = result.append("<div id=\"thumbnail-container\"></div>");
+                        // thumbnailContainer.append("<img id=\"thumbnail\" src=\"" + item.snippet.thumbnails.high.url +
+                        //         "\" width=\"100%\" height=\"100%\" fill=\"#55595c\"/>");
+                        // result.append("<div class=\"card-body\"></div>");
+                        //
+                        // results.append(result);
                     });
 
                     // $( ".result #thumbnail" ).attr('src', data[2].snippet.thumbnails.high.url);
