@@ -11,6 +11,8 @@ import java.util.List;
 @RestController
 public class HelloController {
 
+
+
     @RequestMapping("/")
     public String index() {
         return "Greetings from Spring Boot!";
@@ -20,12 +22,14 @@ public class HelloController {
     public List<SearchResult> search(@RequestParam(value="query") String query) {
 
         QuickStart quickStart = new QuickStart();
-        System.out.println(query);
         return quickStart.search(query);
     }
 
     @RequestMapping("hide")
-    public String hide() {
+    public String hide(@RequestParam(value = "channelId") String channelId) {
+
+        //add channelId to hidden list
+
         return "Not yet implemented";
     }
 
