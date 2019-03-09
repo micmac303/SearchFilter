@@ -17,6 +17,9 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.youtube.YouTubeScopes;
 import com.google.api.services.youtube.model.*;
 import com.google.api.services.youtube.YouTube;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import timeless.solutions.repository.ChannelRepository;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,8 +29,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@Service
 public class QuickStart {
+
+    @Autowired
+    private ChannelRepository channelRepository;
 
     /** Application name. */
     private static final String APPLICATION_NAME = "API Sample";
@@ -202,6 +208,18 @@ public class QuickStart {
                     .filter(searchResult -> ! searchResult.getSnippet().getChannelId().equals("UC16niRr50-MSBwiO3YDb3RA"))
                     .collect(Collectors.toList());
 
+            List<String> hiddenChannelIds = channelRepository.findAll().stream()
+                    .map(c -> c.getChannelId())
+                    .collect(Collectors.toList());
+
+            System.out.println(searchResultList.size());
+
+
+            searchResultList = searchResultList.stream()
+                    .filter(searchResult -> !hiddenChannelIds.contains(searchResult.getSnippet().getChannelId()))
+                    .collect(Collectors.toList());
+
+            System.out.println(searchResultList.size());
             return searchResultList;
 
         } catch (GoogleJsonResponseException e) {

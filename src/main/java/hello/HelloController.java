@@ -1,17 +1,22 @@
 package hello;
 
 import com.google.api.services.youtube.model.SearchResult;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import timeless.solutions.repository.ChannelRepository;
 
 import java.util.List;
 
 @RestController
 public class HelloController {
 
+    @Autowired
+    private QuickStart quickStart;
 
+    @Autowired
+    private ChannelRepository channelRepository;
 
     @RequestMapping("/")
     public String index() {
@@ -21,7 +26,6 @@ public class HelloController {
     @RequestMapping("/search")
     public List<SearchResult> search(@RequestParam(value="query") String query) {
 
-        QuickStart quickStart = new QuickStart();
         return quickStart.search(query);
     }
 
@@ -29,8 +33,8 @@ public class HelloController {
     public String hide(@RequestParam(value = "channelId") String channelId) {
 
         //add channelId to hidden list
-
-        return "Not yet implemented";
+        channelRepository.save(new Channel(channelId));
+        return "hidden";
     }
 
 }
