@@ -51,21 +51,33 @@
                         // $.each(results, function (r, result) {
                         //     result.append($("<div id=\"thumbnail-container\"></div>"));
                         // })
-
+                        var date = new Date(item.snippet.publishedAt.value);
 
                         $fixture = $([
                             "<div class='col-md-4'>",
-                            "<div class='result card mb-4 shadow-sm'>",
-                            "  <div class='thumbnail-container'>",
-                            "   <img class='thumbnail' src='"  + item.snippet.thumbnails.high.url +
+                            "   <div class='result card mb-4 shadow-sm'>",
+                            "       <div class='thumbnail-container'>",
+                            "           <img class='thumbnail' src='"  + item.snippet.thumbnails.high.url +
                             "' width='100%' height='100%' fill='#55595c' />",
-                            "  </div>",
-                            "    <div class='card-body'>",
-                            "       <h6><a href='https://www.youtube.com/watch?v=M-qTiYlctiA'>" + item.snippet.description + "</a></h6>",
-                            "           <p class=\"card-text\">" + item.snippet.description + "</p>",
-                            "    </div>",
-                            "</div>",
-                            "</div>",
+                            "       </div>",
+                            "       <div class='card-body'>",
+                            "           <h6><a href='https://www.youtube.com/watch?v=M-qTiYlctiA'>" + item.snippet.title +
+                            "</a></h6>",
+                            "           <p class='card-text'>" + item.snippet.description + "</p>",
+                            "           <div class='d-flex justify-content-between align-items-center'>",
+                            "               <small class='text-muted'>" + date.toDateString() +
+                            "               </small>",
+                            "           </div>",
+                            "       </div>",
+                            "       <div class='card-footer'>",
+                            "           <div class='btn-group'>",
+                            "               <button type='button' class='btn btn-sm btn-outline-secondary'>" +
+                            "hide " + item.snippet.channelTitle +
+                            "               </button>",
+                            "           </div>",
+                            "       </div>",
+                            "   </div>",
+                            "</div>"
                         ].join("\n"));
 
                         $("#results").append($fixture);
