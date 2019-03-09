@@ -2,6 +2,7 @@ package hello;
 
 import com.google.api.services.youtube.model.SearchResult;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -16,10 +17,16 @@ public class HelloController {
     }
 
     @RequestMapping("/search")
-    public List<SearchResult> search() {
+    public List<SearchResult> search(@RequestParam(value="query") String query) {
 
         QuickStart quickStart = new QuickStart();
-        return quickStart.search("news");
+        System.out.println(query);
+        return quickStart.search(query);
+    }
+
+    @RequestMapping("hide")
+    public String hide() {
+        return "Not yet implemented";
     }
 
 }

@@ -42,7 +42,7 @@
 
                 var searchTerm = $("#search").val();
 
-                $.get( "/search", searchTerm, function( data ) {
+                $.get( "/search", { query: searchTerm }, function( data ) {
 
                     $(".album").show();
 
@@ -69,9 +69,9 @@
                             "       </div>",
                             "       <div class='card-footer'>",
                             "           <div class='btn-group'>",
-                            "               <button type='button' class='btn btn-sm btn-outline-secondary'>" +
+                            "               <a href='/hide'><button type='button' class='hide-button btn btn-sm btn-outline-secondary'>" +
                             "hide " + item.snippet.channelTitle +
-                            "               </button>",
+                            "                                                            </button></a>",
                             "           </div>",
                             "       </div>",
                             "   </div>",

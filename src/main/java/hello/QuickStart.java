@@ -187,7 +187,7 @@ public class QuickStart {
             String apiKey = "AIzaSyBXJ6FxA27Z9NDMMx9mcekU6DyTrhw4Ms0";
             YouTube.Search.List search = youtube.search().list("id,snippet");
 
-            String queryTerm = "news";
+            String queryTerm = query;
 
             search.setKey(apiKey);
             search.setQ(queryTerm);
