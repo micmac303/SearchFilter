@@ -38,7 +38,7 @@
 
             $(".album").hide();
 
-            $("#search-button").click( function search() {
+            $("#search-button").click( function() {
 
                 var searchTerm = $("#search").val();
 
@@ -69,12 +69,9 @@
                             "       </div>",
                             "       <div class='card-footer'>",
                             "           <div class='btn-group'>",
-                            "               <form action='/hide' method='get'>",
-                            "                  <input type='hidden' name='channelId' value='" + item.snippet.channelId +
-                            "' />",
-                            "                  <button type='submit' class='hide-button btn btn-sm btn-outline-secondary'>" + "hide " + item.snippet.channelTitle +
-                            "                  §</button></a>",
-                            "               </form>",
+                            "                  <button id='" + item.snippet.channelId +
+                            "' type='submit' class='hide-button btn btn-sm btn-outline-secondary'>" + "hide " + item.snippet.channelTitle +
+                            "                                    §</button></a>",
                             "           </div>",
                             "       </div>",
                             "   </div>",
@@ -83,10 +80,18 @@
 
                         $("#results").append($fixture);
                     });
+
+                    $.each(data, function(i, item) {
+                        $("#" + item.snippet.channelId).click(function () {
+                            $.get( "/hide", { channelId: item.snippet.channelId }, function( data ) {
+                                $.each(data, function(i, item) {
+
+                                });
+                            });
+                        });
+                    });
                 });
             });
-
-            $("")
         });
     </script>
 </head>
